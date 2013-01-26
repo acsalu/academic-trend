@@ -47,9 +47,9 @@ function fetchData(keyword) {
 function drawChart(title, data) {
 	current_data = [['Year', title]];
 	for (var i = DEFAULT_START; i <= DEFAULT_END; ++i) {
-		current_data.push([i.toString(), current_data[i - DEFAULT_START]]);
+		current_data.push([i.toString(), data[i - DEFAULT_START]]);
 	}
-
+	console.log(current_data);
 	var data = google.visualization.arrayToDataTable(current_data);
 	
 	var options = {

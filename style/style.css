@@ -1,0 +1,56 @@
+* {
+	font-family: Helvetica;
+}
+
+h1 {
+	font-family: Telegrafico;
+}
+
+#header {
+	text-align: center;
+	background-color: #a8a988;
+	color:white;
+	padding: 14px 0px 20px 0px;
+	margin-left: 200px;
+	margin-right: 200px;
+	border-radius: 3px;
+}
+
+.input-class {
+	font-size: 18px;
+	padding-left: 10px;
+}
+
+#options {
+	margin-top: 20px;
+}
+
+.search-options {
+	width: 70px;
+	display: inline-block;
+	background: #786717;
+	padding: 8px;
+	border-radius: 2px;
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+.search-options:hover {
+	background: #ba9f26;
+}
+
+
+#chart_div {
+	margin: auto;
+}
+
+#loader {
+	margin: auto;
+	display: block;
+	padding-top: 150px;
+}
+
+
+::-webkit-input-placeholder { font-style: italic; }
+::-moz-placeholder { font-style: italic; } 
+input:-moz-placeholder { font-style: italic; }

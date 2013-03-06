@@ -1,6 +1,6 @@
 DEFAULT_START = 2000;
-DEFAULT_END = 2012;
-current_data = [];
+DEFAULT_END = 2010;
+current_data = null;
 
 String.prototype.trim = function() {
     return this.replace(/(^[\s]*)|([\s]*$)/g, "");
@@ -14,6 +14,16 @@ $(document).ready(function() {
 	$('#search').click(function() {
 		var trimmed = $keyword.val().trim();
 		if (trimmed.length != 0) {
+			current_data = null;
+			$('#chart_div').html('<img id="loader" src="img/ajax-loader.gif">');
+			fetchData(trimmed);
+		}
+	});
+	
+	
+	$('#compare').click(function() {
+		var trimmed = $keyword.val().trim();
+		if (trimmed.length != 0) {
 			$('#chart_div').html('<img id="loader" src="img/ajax-loader.gif">');
 			fetchData(trimmed);
 		}
@@ -24,17 +34,11 @@ $(document).ready(function() {
 			$('#search').click();
 	});
 	
-	$('#compare').click(function() {
-		var trimmed = $keyword.val().trim();
-		if (trimmed.length != 0) {
-			$('#chart_div').html('<img id="loader" src="img/ajax-loader.gif">');
-			fetchData(trimmed);
-		}
-	});
 });
 
 function fetchData(keyword) {
 	console.log("searching for " + keyword + "...");
+	
 	var url = "/query?q=" + keyword + "&start=" + DEFAULT_START + "&end=" + DEFAULT_END;
 	console.log(url);
 	$.getJSON(url, function(res) {
@@ -45,15 +49,26 @@ function fetchData(keyword) {
 
 
 function drawChart(title, data) {
-	current_data = [['Year', title]];
-	for (var i = DEFAULT_START; i <= DEFAULT_END; ++i) {
-		current_data.push([i.toString(), data[i - DEFAULT_START]]);
+	
+	console.log(current_data);	
+	if (!current_data) console.log("current data is an empty array.");
+	
+	if (!current_data) {
+		current_data = [['Year', title]];		
+		for (var i = DEFAULT_START; i <= DEFAULT_END; ++i) {
+			current_data.push([i.toString(), data[i - DEFAULT_START]]);
+		}
+	} else {
+		current_data[0].push(title);
+		for (var i = 0; i < data.length; ++i)
+			current_data[i + 1].push(data[i]);
 	}
-	console.log(current_data);
+	
 	var data = google.visualization.arrayToDataTable(current_data);
 	
 	var options = {
-	  title: 'Academic Trend'
+	  title: 'Result',
+	  lineWidth: 3
 	};
 	
 	$('#chart_div').html("");

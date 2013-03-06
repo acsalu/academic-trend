@@ -1,4 +1,4 @@
-DEFAULT_START = 2000;
+DEFAULT_START = 1995;
 DEFAULT_END = 2010;
 current_data = null;
 
@@ -31,7 +31,8 @@ $(document).ready(function() {
 	
 	$(document).keydown(function(key) {
 		if (parseInt(key.which, 10) == 13)
-			$('#search').click();
+			if (current_data) $('#compare').click();
+			else $('#search').click();
 	});
 	
 });
